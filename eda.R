@@ -109,4 +109,5 @@ correlacion <- cor(num_variables)
 # Gráfico de correlaciones indicando la forma en la que se representa la 
 # correlación (un cuadrado que varía en tamaño según la fortaleza). Para la 
 # generación de este gráfico es necesario instalar y cargar la librería corrplot
-corrplot(correlacion, method = “square”)
+corrplot(correlacion, method = "square", addCoef.col="red", number.digits = 3)
+
