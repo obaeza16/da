@@ -1,3 +1,4 @@
+# Extracted from https://datos.gob.es/sites/default/files/doc/file/guia_eda_python.pdf
 # Import initial libraries
 import pandas as pd
 import os
@@ -164,4 +165,10 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(correlacion, annot=True, cmap='coolwarm', center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
 plt.title('Matriz de correlaciones entre variables')
 plt.show()
+
+# Now we will use YData Profiling, a tool to create automated EDA 
+from ydata_profiling import ProfileReport
+report = ProfileReport(calidad_aire_original, title='EDA automático')
+report_file = 'reporte_calidad_aire.html'
+report.to_file(report_file)
 

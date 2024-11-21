@@ -1,2 +1,5 @@
 # Data
 *.csv
+
+# Reports
+.html
