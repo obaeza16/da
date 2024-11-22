@@ -1,8 +1,10 @@
 # Data available to download
 calid*.csv
+seatt*.csv
+02*.csv
 
 # Reports
-.html
+*.html
 
 # R stuff
 *.Rhistory

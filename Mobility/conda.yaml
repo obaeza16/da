@@ -1,0 +1,16 @@
+name: mobility                                                                                                                                                                                      
+channels:                                                                                                                                                                                           
+  - bioconda                                                                                                                                                                                        
+  - conda-forge                                                                                                                                                                                     
+dependencies:                                                                                                                                       
+  - geopandas                                                                                                                                                                                       
+  - jupyter                                                                                                                                                                                         
+  - keplergl                                                                                                                                                                                        
+  - matplotlib                                                                                                                                                                                      
+  - mercantile                                                                                                                                                                                      
+  - pandas
+  - pyproj
+  - requests
+  - shapely
+  - python=3.9.19
+prefix: /home/oscar/miniconda3/envs/mobility
