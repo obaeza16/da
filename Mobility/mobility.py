@@ -1142,33 +1142,61 @@ plt.show()
 # CHAT ALTERNATIVE
 # I MUST JOIN xlon and xlat into bounds to make this work
 
-def df2gpd(df, fields=None):
+def df2gpd(df, xlon="xlon", xlat="xlat", fields=None):
     """
-    Converts a Pandas DataFrame into a GeoPandas DataFrame with Point Objects.
+    Converts a Pandas DataFrame with separate longitude and latitude columns 
+    into a GeoPandas DataFrame with Point Objects.
     
     Args:
-        df (pd.DataFrame): Input DataFrame with bounding coordinates or point data.
-        fields (list): Optional list of columns to include in the output GeoDataFrame.
+        df (pd.DataFrame): Input DataFrame with longitude and latitude columns.
+        xlon (str): Name of the column containing longitude values.
+        xlat (str): Name of the column containing latitude values.
+        fields (list): Optional list of additional columns to include in the output GeoDataFrame.
         
     Returns:
         gpd.GeoDataFrame: A GeoDataFrame with Point geometries and specified fields.
     """
-    geoms = []
-    for c in df["bounds"]:  # Assuming 'bounds' is a column containing coordinates
-        try:
-            x, y = map(float, c.split(","))  # Assuming 'bounds' stores "x, y" as a string
-            pt = Point(x, y)
-        except (ValueError, AttributeError):
-            pt = None  # Handle missing or malformed coordinates
-        geoms.append(pt)
+    # Create Point geometries from xlon and xlat
+    geoms = [
+        Point(lon, lat) if not (pd.isna(lon) or pd.isna(lat)) else None
+        for lon, lat in zip(df[xlon], df[xlat])
+    ]
     
     # Create GeoDataFrame
-    full_gpd = gpd.GeoDataFrame(df, geometry=geoms)
+    gdf = gpd.GeoDataFrame(df, geometry=geoms)
     
     # Return specified fields if provided
     if fields:
-        return full_gpd[fields + ["geometry"]].copy()
-    return full_gpd
+        return gdf[fields + ["geometry"]].copy()
+    return gdf
+
+# def df2gpd(df, fields=None):
+#     """
+#     Converts a Pandas DataFrame into a GeoPandas DataFrame with Point Objects.
+    
+#     Args:
+#         df (pd.DataFrame): Input DataFrame with bounding coordinates or point data.
+#         fields (list): Optional list of columns to include in the output GeoDataFrame.
+        
+#     Returns:
+#         gpd.GeoDataFrame: A GeoDataFrame with Point geometries and specified fields.
+#     """
+#     geoms = []
+#     for c in df["bounds"]:  # Assuming 'bounds' is a column containing coordinates
+#         try:
+#             x, y = map(float, c.split(","))  # Assuming 'bounds' stores "x, y" as a string
+#             pt = Point(x, y)
+#         except (ValueError, AttributeError):
+#             pt = None  # Handle missing or malformed coordinates
+#         geoms.append(pt)
+    
+#     # Create GeoDataFrame
+#     full_gpd = gpd.GeoDataFrame(df, geometry=geoms)
+    
+#     # Return specified fields if provided
+#     if fields:
+#         return full_gpd[fields + ["geometry"]].copy()
+#     return full_gpd
 
 def save_gpd(gpdf, filepath, driver="GeoJSON"):
     """
@@ -1217,3 +1245,4 @@ temp_save
 all_airport_df = pd.concat(airport_z18_sample_dfList)
 temp_save = df2gpd(all_airport_df)
 save_gpd(temp_save, "all_airports_2020_ai.geojson")
+temp_save
