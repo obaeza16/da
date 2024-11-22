@@ -2,6 +2,8 @@
 calid*.csv
 seatt*.csv
 02*.csv
+*_den.csv
+*.zip
 
 # Reports
 *.html
