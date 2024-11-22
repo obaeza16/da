@@ -1,5 +1,8 @@
-# Data
-*.csv
+# Data available to download
+calid*.csv
 
 # Reports
 .html
+
+# R stuff
+*.Rhistory

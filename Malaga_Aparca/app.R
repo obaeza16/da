@@ -69,7 +69,7 @@ server <- shinyServer(function(input, output, session) {
     # Trigger every 2 seconds
     values$df <- isolate({
       
-      data <- read_csv("~/Descargas/final_malaga_data.csv")
+      data <- read_csv("~/Descargas/final_malaga_data.csv", col_select = c(2:9))
       # get and bind the new data
       #rbind(values$df, get_new_data()) %>%
         #filter(!is.na(x)) # filter the first value to prevent a first point in the middle of the plot
@@ -77,7 +77,6 @@ server <- shinyServer(function(input, output, session) {
   })
   
     data <- head(data, 10)
-    
     data$capacidad <- as.numeric(data$capacidad)
     data$logcapacidad <- log(data$capacidad)    
 

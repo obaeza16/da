@@ -1,10 +1,11 @@
 library(tidyverse)
-data <- read_csv("~/Descargas/ocupappublicosmun.csv")
+setwd("~/eda_python")
+data <- read_csv("./Malaga_Aparca/ocupappublicosmun.csv")
 data
 data <- data[1:11,]
 data
 
-cata <- read_csv("~/Descargas/catalogo.csv")
+cata <- read_csv("./Malaga_Aparca/catalogo.csv")
 cata
 
 cata <- cata %>% rename(ID = id)
@@ -29,11 +30,13 @@ final_df <- cleaned_df %>%
   left_join(cata, by = "ID")
 
 final_df$capacidad <- c(rep(300, 10))
-write.csv(final_df,"~/Descargas/final_malaga_data.csv")
+final_df$libres <- final_df$Libres
+final_df <- select(final_df, -c(Libres))
+write.csv(final_df,"./Malaga_Aparca/final_malaga_data.csv")
 
 
-      
-data_final <- read_csv("~/Descargas/final_malaga_data.csv", col_select = c(2:9))
+
+data_final <- read_csv("./Malaga_Aparca/final_malaga_data.csv", col_select = c(2:9))
 # get and bind the new data_final
 #rbind(values$df, get_new_data_final()) %>%
 #filter(!is.na(x)) # filter the first value to prevent a first point in the middle of the plot
@@ -42,3 +45,4 @@ data_final <- head(data_final, 10)
 
 data_final$capacidad <- as.numeric(data_final$capacidad)
 data_final$logcapacidad <- log(data_final$capacidad)    
+data_final
