@@ -1,0 +1,11 @@
+name: packt
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - numpy
+  - pandas
+  - seaborn
+  - jinja2
+  - python=3.9.20
+prefix: /home/oscar/miniconda3/envs/packt
