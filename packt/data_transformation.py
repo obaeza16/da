@@ -211,3 +211,61 @@ category
 
 pd.Series(category).value_counts()
 pd.value_counts(category)
+
+category2 = pd.cut(height, [118, 126, 136, 161, 200], right=False)
+category2
+
+bin_names = ['Short Height', 'Averge height', 'Good Height', 'Taller']
+pd.cut(height, bins, labels=bin_names)
+pd.cut(np.random.rand(40), 5, precision=2)
+
+randomNumbers = np.random.rand(2000)
+category3 = pd.qcut(randomNumbers, 4) # cut into quartiles
+category3
+
+pd.Series(category3).value_counts()
+
+pd.qcut(randomNumbers, [0, 0.3, 0.5, 0.7, 1.0])
+
+# Load data from github
+df = pd.read_csv('https://raw.githubusercontent.com/PacktPublishing/hands-on-exploratory-data-analysis-with-python/master/Chapter%204/sales.csv')
+df.head(10)
+df.info(memory_usage='deep')
+df.describe()
+
+# Find values in order that exceeded 
+df['TotalPrice'] = df['UnitPrice'] * df['Quantity']
+df.head(10)
+# Find transaction exceeded 3000000
+TotalTransaction = df["TotalPrice"]
+TotalTransaction[np.abs(TotalTransaction) > 3000000]
+df[np.abs(TotalTransaction) > 6741112]
+
+# Permutation and random sampling
+dat = np.arange(80).reshape(10,8)
+df = pd.DataFrame(dat)
+df
+
+sampler = np.random.permutation(10)
+sampler
+df.take(sampler)
+
+# Random sample without replacement
+df.take(np.random.permutation(len(df))[:3])
+# Random sample with replacement
+sack = np.array([4, 8, -2, 7, 5])
+sampler = np.random.randint(0, len(sack), size = 10)
+sampler
+
+draw = sack.take(sampler)
+draw
+
+# Dummy variables
+df = pd.DataFrame({'gender': ['female', 'female', 'male', 'unknown', 'male', 'female'], 'votes': range(6, 12, 1)})
+df
+
+pd.get_dummies(df['gender'], dtype=float)
+dummies = pd.get_dummies(df['gender'], prefix='gender')
+dummies
+with_dummy = df[['votes']].join(dummies)
+with_dummy
