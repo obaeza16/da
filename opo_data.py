@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import matplotlib.pyplot as plt
 
 with open("./packt/resultat_fase_oposicio.json", "r") as file:
     data = json.load(file)
@@ -49,3 +50,27 @@ df_tot
 df_tot['resultat_final'] = df_tot['Total fase oposicio'] + df_tot['Total concurs']
 df_tot = df_tot.sort_values(by='resultat_final',ascending=False)
 df_tot
+
+# Lets plot with mathplotlib
+df_plot = df_tot.drop(['Total fase oposicio','Total concurs','resultat_final'],axis=1)
+ax = df_plot.plot(kind='bar', stacked=True, figsize=(8, 5))
+
+# Add value labels
+for container in ax.containers:
+    for bar in container:
+        height = bar.get_height()
+        if height > 0:  # Only add labels to non-zero bars
+            ax.annotate(f'{height:.1f}',  # Format the value
+                        xy=(bar.get_x() + bar.get_width() / 2, bar.get_y() + height / 2),  # Position at the center
+                        ha='center', va='center', color='black', fontsize=10, fontweight='bold')
+
+
+# Add labels and title
+plt.title("Stacked Bar Chart of Puntuació")
+plt.xlabel("Registre")
+plt.ylabel("Puntuació")
+plt.legend(title="Puntuació", loc='upper right')
+
+# Show the plot
+plt.tight_layout()
+plt.show()
