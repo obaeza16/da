@@ -9,5 +9,7 @@ dependencies:
   - jinja2
   - python=3.9
   - faker
+  - vobject
+  - ipython
 prefix: /home/oscar/miniconda3/envs/packt
 # pip install radar
