@@ -1,0 +1,41 @@
+[
+    {
+      "Resultats": [
+        {
+          "Registre": "E2024016655",
+          "Expedient Academic": "0.5",
+          "Experiencia Profesional": "0.05",
+          "Formacio": "1.25",
+          "Total concurs": "1.8"
+        },
+        {
+          "Registre": "E2024016018",
+          "Expedient Academic": "0",
+          "Experiencia Profesional": "0",
+          "Formacio": "0.5",
+          "Total concurs": "0.5"
+        },
+        {
+          "Registre": "E2024016690",
+          "Expedient Academic": "0",
+          "Experiencia Profesional": "0",
+          "Formacio": "0.35",
+          "Total concurs": "0.35"
+        },
+        {
+          "Registre": "E2024016033",
+          "Expedient Academic": "0",
+          "Experiencia Profesional": "0",
+          "Formacio": "0.2",
+          "Total concurs": "0.2"
+        },
+        {
+          "Registre": "E2024016716",
+          "Expedient Academic": "0",
+          "Experiencia Profesional": "0",
+          "Formacio": "0",
+          "Total concurs": "0"
+        }
+      ]
+    }
+  ]

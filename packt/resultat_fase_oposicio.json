@@ -1,0 +1,46 @@
+[
+  {
+    "Resultats": [
+      {
+        "Registre": "E2024016033",
+        "Resultat Teorica": "12,19",
+        "Catala": "Exempció",
+        "Resultat prova Practica": "21,6",
+        "Total fase oposicio": "33,79",
+        "A": null
+      },
+      {
+        "Registre": "E2024016018",
+        "Resultat Teorica": "12,81",
+        "Catala": "Exempció",
+        "Resultat prova Practica": "20,1",
+        "Total fase oposicio": "32,91",
+        "A": null
+      },
+      {
+        "Registre": "E2024016655",
+        "Resultat Teorica": "10,88",
+        "Catala": "Exempció",
+        "Resultat prova Practica": "21,9",
+        "Total fase oposicio": "32,78",
+        "A": null
+      },
+      {
+        "Registre": "E2024016716",
+        "Resultat Teorica": "10,25",
+        "Catala": "Exempció",
+        "Resultat prova Practica": "12,9",
+        "Total fase oposicio": "23,15",
+        "A": null
+      },
+      {
+        "Registre": "E2024016690",
+        "Resultat Teorica": "9,75",
+        "Catala": "Exempció",
+        "Resultat prova Practica": "13",
+        "Total fase oposicio": "22,75",
+        "A": null
+      }
+    ]
+  }
+]
