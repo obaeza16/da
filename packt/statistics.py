@@ -1,10 +1,8 @@
 # import libraries
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from IPython.display import Math, Latex
-from IPython.core.display import Image
 import seaborn as sns
+import numpy as np
 # Uniform Distribution
 from scipy.stats import uniform
 # Normal distribution
@@ -138,3 +136,57 @@ plt.show()
 # summarize categories of drive-wheels
 drive_wheels_count = df['drive-wheels'].value_counts()
 print(drive_wheels_count)
+
+#standard variance of data set using std() function
+std_dev = df.std()
+print(std_dev)
+# standard variance of the specific column
+sv_height=df.loc[:,"height"].std()
+print(sv_height)
+
+# Measures of Variance
+# variance of data set using var() function
+variance=df.var()
+print(variance)
+# variance of the specific column
+var_height=df.loc[:,"height"].var()
+print(var_height)
+
+df.loc[:,"height"].var()
+df.skew()
+# skewness of the specific column
+df.loc[:,"height"].skew()
+
+# Kurtosis of data in data using skew() function
+# Kurtosis of the specific column
+sk_height=df.loc[:,"height"].kurt()
+print(sk_height)
+
+sns.set()
+plt.rcParams['figure.figsize'] = (10, 6)
+# plot the relationship between “engine-size” and ”price”
+plt.scatter(df["price"], df["engine-size"])
+plt.title("Scatter Plot for engine-size vs price")
+plt.xlabel("engine-size")
+plt.ylabel("price")
+plt.show()
+
+#boxplot to visualize the distribution of "price" with types of "drive-wheels"
+sns.boxplot(x="drive-wheels", y="price",data=df, palette='Set1')
+plt.show()
+type(df.price[0])
+
+# Calculate percentiles
+# calculating 30th percentile of heights in dataset
+height = df["height"]
+percentile = np.percentile(height, 50,)
+print(percentile)
+
+price = df.price.sort_values()
+Q1 = np.percentile(price, 25)
+Q2 = np.percentile(price, 50)
+Q3 = np.percentile(price, 75)
+
+# The IQR is not affected by the presence of outliers
+IQR = Q3 - Q1
+IQR
