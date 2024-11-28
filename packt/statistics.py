@@ -63,3 +63,78 @@ plt.show()
 # loading data set as Pandas dataframe
 df = pd.read_csv("https://raw.githubusercontent.com/PacktPublishing/hands-on-exploratory-data-analysis-with-python/master/Chapter%205/data.csv")
 df.head()
+
+df.dtypes
+
+# Data Cleaning
+# Find out the number of values which are not numeric
+df['price'].str.isnumeric().value_counts()
+
+# List out the values which are not numeric
+df['price'].loc[df['price'].str.isnumeric() == False]
+#Setting the missing value to mean of price and convert the datatype to integer
+price = df['price'].loc[df['price'] != '?']
+pmean = price.astype(str).astype(int).mean()
+df['price'] = df['price'].replace('?',pmean).astype(int)
+df['price'].head()
+
+# Cleaning the horsepower losses field
+df['horsepower'].str.isnumeric().value_counts()
+horsepower = df['horsepower'].loc[df['horsepower'] != '?']
+hpmean = horsepower.astype(str).astype(int).mean()
+df['horsepower'] = df['horsepower'].replace('?',hpmean).astype(int)
+df['horsepower'].head()
+
+# Cleaning the Normalized losses field
+df[df['normalized-losses']=='?'].count()
+nl=df['normalized-losses'].loc[df['normalized-losses'] !='?'].count()
+nmean=nl.astype(str).astype(int).mean()
+df['normalized-losses'] = df['normalized-losses'].replace('?',nmean).astype(int)
+df['normalized-losses'].head()
+
+# cleaning the bore
+# Find out the number of invalid value
+df['bore'].loc[df['bore'] == '?']
+# Replace the non-numeric value to null and convert the datatype
+df['bore'] = pd.to_numeric(df['bore'],errors='coerce')
+df.bore.head()
+
+# Cleaning the column stoke
+df['stroke'] = pd.to_numeric(df['stroke'],errors='coerce')
+df['stroke'].head()
+
+# Cleaning the column peak-rpm 
+df['peak-rpm'].iloc[130]
+df['peak-rpm'] = pd.to_numeric(df['peak-rpm'],errors='coerce')
+df['peak-rpm'].head()
+
+df['peak-rpm'].value_counts()
+df['peak-rpm'].isna().any()
+
+# Cleaning the Column num-of-doors data
+# remove the records which are having the value '?'
+df['num-of-doors'].loc[df['num-of-doors'] == '?']
+df= df[df['num-of-doors'] != '?']
+df['num-of-doors'].loc[df['num-of-doors'] == '?']
+
+df.describe()
+
+# Get column heigth from df
+height = df['height']
+print(height)
+
+# Calculate mean, median and mode of heigth data
+mean = height.mean()
+median = height.median()
+mode = height.mode()
+print(mean, median, mode)
+
+df.make.value_counts().nlargest(30).plot(kind='bar')
+plt.title('Number of cars by make')
+plt.ylabel('Number of cars')
+plt.xlabel('Make of the cars')
+plt.show()
+
+# summarize categories of drive-wheels
+drive_wheels_count = df['drive-wheels'].value_counts()
+print(drive_wheels_count)
