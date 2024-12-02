@@ -38,7 +38,7 @@ price = new_dataset['price'].loc[new_dataset['price'] != '?']
 pmean = price.astype(str).astype(int).mean()
 new_dataset['price'] = new_dataset['price'].replace('?',pmean).astype(float)
 # Check all columns are the needed type
-new_dataset.info()
+new_dataset.info(memory_usage='deep')
 
 # applying single aggregation for mean over the columns
 new_dataset.agg('mean', axis='rows')
@@ -53,6 +53,10 @@ new_dataset.aggregate({"length":['sum', 'min'],
 # then it has NaN value corresponding to it
 df.dtypes
 
+price2 = df['price'].loc[df['price'] != '?']
+pmean2 = price2.astype(str).astype(int).mean()
+df['price'] = df['price'].replace('?',pmean2).astype(float)
+df.dtypes
 # Group the data frame df by body-style and drive-wheels and extract stats from each group
 df.groupby(["body-style","drive-wheels"]).agg({'height': min, 'length': max, 'price': 'mean'})
 
@@ -117,3 +121,34 @@ table2 = pd.pivot_table(new_dataset3, values='price', index=["body-style"],
                        columns=["drive-wheels"],aggfunc=np.mean,fill_value=0)
 table2
 
+table3 = pd.pivot_table(new_dataset1, values=['price','height','width'],
+                       index =["body-style","drive-wheels"],
+                       aggfunc={'price': np.mean,'height': [min, max],'width': [min, max]},
+                       fill_value=0)
+table3
+
+# Cross tabulations
+# apply pd.crosstab() function in data frame df
+pd.crosstab(df["make"], df["body-style"])
+
+# apply margins and margins_name attribute to displays the row wise 
+# and column wise sum of the cross table
+pd.crosstab(df["make"], df["body-style"],margins=True,margins_name="Total Made")
+
+pd.crosstab([df["make"],df["num-of-doors"]], [df["body-style"],df["drive-wheels"]],
+            margins=True,margins_name="Total Made")
+
+# rename the columns and row index for better understanding of crosstab
+pd.crosstab([df["make"],df["num-of-doors"]], [df["body-style"],df["drive-wheels"]],
+            rownames=['Auto Manufacturer', "Doors"],
+            colnames=['Body Style', "Drive Type"],
+            margins=True,margins_name="Total Made").head()
+
+# values are the column in which aggregration function is to be applied
+# aggfunc is the aggregration function to be applied
+# round() to round the output
+pd.crosstab(df["make"], df["body-style"],values=df["curb-weight"],
+            aggfunc='mean').round(0)
+
+# top ten output that represents the percentage of occurrence of the combination 
+pd.crosstab(df["make"], df["body-style"],normalize=True).head(10)
